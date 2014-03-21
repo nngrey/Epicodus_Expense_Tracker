@@ -23,8 +23,17 @@ class Category
   end
 
   def save
-    results = DB.exec("INSERT INTO category (name) VALUES ('#{@name}') RETURNING id;")
-    @id = results.first['id'].to_i
-  end
+
+    ## This is the beginning of an attempt at a non-duplication logic for categories...
+    # x = ''
+    # Category.all.each do |category|
+    #   if category['name'] == @name
+    #     name_id = category['id']
+    #   end
+    # end
+    # if i = 1
+      results = DB.exec("INSERT INTO category (name) VALUES ('#{@name}') RETURNING id;")
+      @id = results.first['id'].to_i
+    end
 
 end
