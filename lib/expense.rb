@@ -1,17 +1,12 @@
-require 'pg'
-
 class Expense
 
-  attr_reader :description, :amount, :date
+  attr_reader :description, :amount, :date, :id
 
-  def initialize(description, amount, date)
-    @description = description
-    @amount = amount
-    @date = date
-  end
-
-  def id
-    @id
+  def initialize(attributes)
+    @description = attributes[:description]
+    @amount = attributes[:amount]
+    @date = attributes[:date]
+    @id = attributes[:id]
   end
 
   def self.all
@@ -20,19 +15,19 @@ class Expense
     results.each do |result|
       description = result['description']
       amount = result['amount']
-      date = ['date']
-      expenses << Expense.new(description, amount, date)
+      date = result['date']
+      id = result['id']
+      expenses << Expense.new({ :description => description, :amount => amount, :date => date, :id => id})
     end
     expenses
    end
 
   def ==(another_expense)
-    self.description == another_expense.description
+    self.description == another_expense.description && self.amount == another_expense.amount && self.date == another_expense.date
   end
 
   def save
-    # DB.exec({:dbnam => 'expense_test'})
-    results = DB.exec("INSERT INTO expenses (description, amount, date) VALUES ('#{@description}', '#{@amount}', '#{@date}') RETURNING id; ")
+    results = DB.exec("INSERT INTO expenses (description, amount, date) VALUES ('#{@description}', '#{@amount}', '#{@date}') RETURNING id;")
     @id = results.first['id'].to_i
   end
 
