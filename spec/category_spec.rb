@@ -24,7 +24,7 @@ describe Category do
     end
   end
 
-  describe '==' do
+  describe '#==' do
     it 'makes rspec indisciminate amongst irrelevant differences' do
       test_name1 = Category.new({ 'name' => "groceries"})
       test_name2 = Category.new({ 'name' => "groceries"})
@@ -39,6 +39,14 @@ describe Category do
       test_name1.save
       test_name2.save
       test_name1.should_not eq test_name2
+    end
+  end
+
+  describe '#list_categories' do
+    it 'displays the name of every category' do
+      test_category = Category.new({'name' => 'groceries'})
+      test_category.save
+      test_category.list_categories.should eq test_category.name
     end
   end
 end

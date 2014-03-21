@@ -25,6 +25,14 @@ class Category
       @id = results.first['id']
     end
 
+
+  def list_categories
+    results = DB.exec("SELECT * FROM category;")
+    results.each do |result|
+      "#{result['name']}"
+    end
+  end
+
   def self.duplicate(name)
     ## This is the beginning of an attempt at a non-duplication logic for categories...
     # category_id = ''

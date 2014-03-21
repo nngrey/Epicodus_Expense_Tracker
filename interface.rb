@@ -59,9 +59,7 @@ end
 
 
 def list_categories
-
-  puts
-
+  list_categories
 end
 
 main_menu
