@@ -7,7 +7,7 @@ DB = PG.connect({:dbname => 'expense'})
 
 def main_menu
 
-puts "\n\n", "*"*30, "BITTERSWEET SYMPHONY (MAIN MENU)", "*"*30
+puts "\n\n", "*"*30, "Expense Tracker", "*"*30
 
 puts "\t1: Enter new Expense",
      "\t2: Display Expenditure Categories",
@@ -18,11 +18,11 @@ puts "\t1: Enter new Expense",
   case choice
 
   when '1'
-    new_expense
+    add_expense
     gets
     main_menu
   when '2'
-    expense_categories
+    list_categories
     gets
     main_menu
   when '3'
@@ -39,7 +39,7 @@ end
 
 
 
-def new_expense
+def add_expense
   puts "Enter a description of the Expense: "
   description = gets.chomp
   print "How much did you spend on #{description}?: $"
@@ -51,15 +51,14 @@ def new_expense
 
   new_expense = Expense.new({ :description => description, :amount => amount, :date => date })
   new_expense.save
-  new_category = Category.new({:name => category})
-  new_category.save
+  ##  Category.duplicate(category)? check duplicate method... don't want to make a new category if it's already there.
 
   puts "\nYour #{description} expenditure has been saved to the #{category} category!",
        "\nPress Enter to return to the Main Menu"
 end
 
 
-def expense_categories
+def list_categories
 
   puts
 
