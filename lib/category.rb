@@ -26,11 +26,13 @@ class Category
     end
 
 
-  def list_categories
+  def self.list_categories
+    results_arr = []
     results = DB.exec("SELECT * FROM category;")
     results.each do |result|
-      "#{result['name']}"
+      results_arr << result['name']
     end
+    results_arr
   end
 
   def self.duplicate(name)

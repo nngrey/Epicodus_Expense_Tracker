@@ -22,7 +22,7 @@ puts "\t1: Enter new Expense",
     gets
     main_menu
   when '2'
-    list_categories
+    list_category
     gets
     main_menu
   when '3'
@@ -49,8 +49,9 @@ def add_expense
   puts "Under which category does this expense fall? "
   category = gets.chomp
 
-  new_expense = Expense.new({ :description => description, :amount => amount, :date => date })
+  new_expense = Expense.new({ 'description' => description, 'amount' => amount, 'date' => date })
   new_expense.save
+  new_expense.add_category(category)
   ##  Category.duplicate(category)? check duplicate method... don't want to make a new category if it's already there.
 
   puts "\nYour #{description} expenditure has been saved to the #{category} category!",
@@ -58,8 +59,8 @@ def add_expense
 end
 
 
-def list_categories
-  list_categories
+def list_category
+  puts Category.list_categories
 end
 
 main_menu

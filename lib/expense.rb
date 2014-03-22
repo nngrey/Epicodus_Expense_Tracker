@@ -30,8 +30,7 @@ class Expense
     @id = results.first['id']
   end
 
-
   def add_category(category)
-    result = DB.exec("INSERT INTO expense_category (expense_id, category_id) VALUES (#{@id}, #{category.id});")
+    result = DB.exec("INSERT INTO expense_category (expense_id, category_id) VALUES (#{@id}, #{category_id});")
   end
 end
